@@ -1,3 +1,8 @@
  The mobile half of my Yummy-Or-Not project.
  
- This android app opens the camera, takes a picture, and uploads it to a Google Datastore. In this case, to the yummy-or-not datastore. That's currently hard-coded in, but making that easier to modify should go on the to-do list for me.
+ This android app opens the camera, takes a picture, and uploads it to a Google Datastore. 
+ In this case, to the yummy-or-not datastore. That's currently hard-coded in, but making 
+ that easier to modify should go on the to-do list for me.
+
+ This is set up so that you can just download the files and roll. If you just want the "guts"
+ of the project, it's in Android/src/com/androidproject/MainActivity.java
