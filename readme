@@ -1,0 +1,7 @@
+My yummy-or-not project, probably the most difficult program I made for my degree.
+
+The project comes in two halves: a web half which runs off Google Datastore, and
+an Android app, which takes pictures and uploads them directly to the Datastore.
+
+Neither half is hugely optimized (that's on the to-do list, I swear!), but everything
+here should work straight out of the box (well, aside from needing a Google Datastore).
