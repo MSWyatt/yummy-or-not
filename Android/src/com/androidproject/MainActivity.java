@@ -37,6 +37,7 @@ ImageView imgFavorite;
    @Override
    protected void onCreate(Bundle savedInstanceState) {
 	   super.onCreate(savedInstanceState);
+	   // I use lots of logs to track my app. These can be easily removed with no performance change.
 	   Log.w("Debug", "Camera starting up.");
 	   Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	   startActivityForResult(intent, 0);
@@ -45,11 +46,17 @@ ImageView imgFavorite;
 	   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  Log.w("Debug", "Picture taken.");
 		  Bitmap bp = (Bitmap) data.getExtras().get("data");
+	      // I only save the most recent picture taken by this app for storage reasons.
+	      // It would be very easy to create a dynamic file name that would allow for many files.
 	      String saved = storeImage(bp, "dinner.jpg");
 	      Log.w("Debug", "Calling asynchronous task with bitmap of dimensions " + bp.getWidth()+"x" + bp.getHeight());
 	      new Uploader().execute(bp);
 	      
 	   }
+	   
+	   // Strictly speaking, saving the image isn't required for my purposes, but this made it
+	   // *much* easier to bug test and find where the app might be tripping up. If it doesn't take
+	   // the picture right, of course the upload fails!
 	   private String storeImage(Bitmap image, String filename){
 		   File path = Environment.getExternalStorageDirectory();
 		   String fullpath = path + "/" + filename;
@@ -70,6 +77,8 @@ ImageView imgFavorite;
 		  Log.w("Debug", "File saved in " + fullpath + "."); 
 		  return fullpath;
 	   }   
+	   
+	   // We need to upload the picture asynchronously.
 	   public class Uploader extends AsyncTask<Bitmap, Integer, Boolean>
 	   {
 		   
@@ -96,6 +105,7 @@ ImageView imgFavorite;
 					   MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 					   builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 					   builder.addBinaryBody("bytes", bytes);
+					   // This line is very spammy, recommend turning it off if no problems.
 					   Log.w("Debug", "photo contents = " + photo);
 					   builder.addTextBody("photo", photo);
 					   httppost.setEntity(builder.build());
@@ -105,6 +115,7 @@ ImageView imgFavorite;
 					   Log.w("Debug", "Sent to BlobURL.");
 					   urlEntity = res.getEntity();
 					   String confirm = EntityUtils.toString(urlEntity, "UTF-8");
+					   // Also a very spammy line.
 					   Log.w("Debug", "Response from ImgUpload Servlet: " + confirm);
 					   
 					  }
