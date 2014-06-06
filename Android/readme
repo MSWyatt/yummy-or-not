@@ -1,1 +1,3 @@
+ The mobile half of my Yummy-Or-Not project.
  
+ This android app opens the camera, takes a picture, and uploads it to a Google Datastore. In this case, to the yummy-or-not datastore. That's currently hard-coded in, but making that easier to modify should go on the to-do list for me.
